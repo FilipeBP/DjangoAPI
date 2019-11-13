@@ -9,11 +9,11 @@ class TuristicPoint(models.Model):
     description = models.TextField()
     status = models.BooleanField(default=False) #Por padrão, os pontos turísticos devem ser moderados
     atractions = models.ManyToManyField(Atracao)
-    comments = models.ManyToManyField(Comment)
-    reviews = models.ManyToManyField(Review)
-    localization = models.ForeignKey(Localization, on_delete=models.CASCADE)
+    comments = models.ManyToManyField(Comment, blank=True)
+    reviews = models.ManyToManyField(Review, blank=True)
+    localization = models.ForeignKey(Localization, on_delete=models.CASCADE, null=True, blank=True)
 
     def __str__(self):
-        return self.nome
+        return self.name
 
 
