@@ -1,5 +1,4 @@
-#[Criando poderosas API's RESTful com Django Rest Framework](www.udemy.com/course/apis-restful-com-django-rest-framework/)
-
+# [Criando poderosas API's RESTful com Django Rest Framework](www.udemy.com/course/apis-restful-com-django-rest-framework/)
 _requirements: django, djangorestframework_
 
 ## Do que o curso se trata?
@@ -51,6 +50,24 @@ de todos objetos de um model (tabela do banco de dados), o template gerado pelo 
 O DRF já possui o CRUD implementado em seu código-base, por isso quando se entra em um objeto criado no banco de dados, é possível dar um UPDATE neste objeto, e, então, modificando seus dados. Além disso, é possível deletar este mesmo objeto. Ou seja, o CRUD completo fornecido pelo DRF com poucas linhas de código.
 
 O CRUD é implementado pelo herança do 'ModelViewSet', ou seja, se uma ViewSet for criada com heraça com esta classe, o CRUD vai estar disponível.
+
+##### MÉTODOS DEFAULT
+Por default, a classe ModelViewSet oriunda do DRF possui alguns métodos atrelados, e todos são passíveis de mudanças pelo dev ao realizar polimorfismo, além de todos ter como argumento o request, *args e **kwargs. Segue a lista abaixo:
+* list() - Quando o request mandado para o site é o **GET**, este método é acionado, e assim, mostra todos os objetos do model em questão. OBS: Este método só é acionado pelo **GET** quando é preterível ver todos os objetos do endpoint.
+* create() - Acionado quando o server requisita a ação **POST**.
+* destroy() - Acionado quando o server requisita a ação **DELETE** de um objeto, e não de um endpoint em sua totalidade.
+* update() - Acionado quando o server requisita a ação **PUT** de um objeto por inteiro, ou seja, este objeto deve ser retonado por completo, mesmo que a alteração tenha sido em apenas um dos campos do objeto.
+* partial_update() - Acionado quando o server requisita a ação **PATCH**, ou seja, ao contrário da ação _PUT_, não é necessário retornar o objeto por completo, e sim, apenas os campos que estão sendo modificados.
+* retrieve() - Comportamento parecido com o do _list()_, acionado quando ação é o **GET**, porém, ao contrário do método já mencionado, este método é acionado quando é desejado ver apenas um objeto do endpoint.
+
+OBS: O _request_ repassado como argumento nas funções possui uma coleção de dados implícitos, inclusive o _request.data_, que é um dicionário, traduzido de um objeto JSON automaticamente, em que possui todas as informações do objeto em questão. Isto é válidos para todos os verbos, menos para o _GET_, pois este não retorna o objeto JSON
+
+###### MÉTODOS PRÓPRIOS
+É possível criar próprios métodos, além dos métodos default. Para isso, é necessário realizar o comando `import rest_framework.decorators.action`, em que será importado o decorator **action** do Django, em que este decorator possui alguns argumentos, entre eles o _methods_, que recebe os verbos que acionam este método, e o _detail_ que recebe True se a ação é em um recurso (objeto) do endpoint, ou False se a ação será feita no endpoint. Caso _detail_ possua o valor de True, é necessário colocar o argumento _pk_ no método, e não no decorator.
+
+Para acessar a URL desta nova action: *host/endpoint/id/action* (Se for em cima de um recurso, e não de um endpoint)
+
+Ver *pontos_turisticos -> api -> viewsets*
 
 #### REST
 Um conjunto de regras/constraints em que uma API deve seguir para está dentro dos conformes para um bom funcionamento. Serve como uma espécie
