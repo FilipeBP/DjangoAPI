@@ -12,6 +12,7 @@ class TuristicPoint(models.Model):
     comments = models.ManyToManyField(Comment, blank=True)
     reviews = models.ManyToManyField(Review, blank=True)
     localization = models.ForeignKey(Localization, on_delete=models.CASCADE, null=True, blank=True)
+    photo = models.ImageField(upload_to='pontos_turisticos', blank=True, null=True)
 
     def __str__(self):
         return self.name

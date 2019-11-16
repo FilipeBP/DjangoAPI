@@ -1,5 +1,5 @@
 # [Criando poderosas API's RESTful com Django Rest Framework](www.udemy.com/course/apis-restful-com-django-rest-framework/)
-_requirements: django, djangorestframework_
+_requirements: django, djangorestframework, pillow, django-filter_
 
 ## Do que o curso se trata?
 O Django Rest Framework utiliza-se do framework bastante conhecido, o Django (sim, são diferentes), para que haja a aplicação da API juntamente
@@ -68,6 +68,16 @@ OBS: O _request_ repassado como argumento nas funções possui uma coleção de 
 Para acessar a URL desta nova action: *host/endpoint/id/action* (Se for em cima de um recurso, e não de um endpoint)
 
 Ver *pontos_turisticos -> api -> viewsets*
+
+##### FILTROS
+É possível realizar filtros dos objetos dos endpoints de diversas maneiras, entre elas estão:
+
+* get_queryset(self): Com este filtro, é possível realizar buscas manuais por caracteristicas desejadas. O request passado para o método possui um atributo chamado *query_params*, e neste possui as características que foram buscadas pelo usuário ou server.
+    * Ver: *pontos_turisticos -> api -> viewsets: get_querysets*
+* DjangoFilter: É uma biblioteca a parte que se comunica com o DRF e Django que permite filtros mais rebuscados e de forma bem simples. Para realizar a filtragem, é necessário colocar dentro da viewset da aplicação desejada, a variável *filter_fields* e atribuir um iterável com os campos que façam parte da filtragem. Com isso, no endpoint da aplicação, irá aparecer um botão **Filter** em que aparecerá os campos para o usuário preencher com as características desejadas.
+    * É necessário habilitar o DjangoFilter em **INSTALLED_APPS** colocando *django_filter*
+    * Caso queira habilitar a filtragem para todas as aplicações: Ver: *turistic_site -> settings: REST_FRAMEWORK['DEFAULT_FILTER_BACKENDS']*
+    * Ver: *atracoes -> api -> viewsets: filter_fields*
 
 #### REST
 Um conjunto de regras/constraints em que uma API deve seguir para está dentro dos conformes para um bom funcionamento. Serve como uma espécie
